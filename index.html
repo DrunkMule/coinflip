@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Coinflip Game</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="shortcut icon" href="casino.ico" type="image/x-icon">
+  <link rel="icon" href="casino.ico" type="image/x-icon">
+  <style>
+    .coinflip-animation {
+      width: 100px;
+      height: 100px;
+      background-color: #159c4e;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      position: relative;
+    }
+    .coinflip-animation::before {
+      content: attr(data-outcome);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .spinning {
+      animation: spin 0.75s linear infinite;
+    }
+    @keyframes spin {
+      0% {
+        transform: rotateY(0deg);
+      }
+      100% {
+        transform: rotateY(1turn);
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Mr. Grøn</h1>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="/homepage.html">Homepage</a></li>
+        <li><a href="/coinflip.html">Coinflip</a></li>
+        <li><a href="/crash.html">Crash</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div id="coinflip-section" class="coinflip-section">
+    <h2>Coinflip Game</h2>
+    <span>Hvert bet er 5$</span>
+    <span>Der er en 5% betting fee!</span>
+    <p id="balance">Balance: $<span id="balance-amount">100.00</span></p>
+    <div id="coinflip-animation" class="coinflip-animation" onclick="placeBet()" data-outcome=""></div>
+    <div class="coinflip-buttons">
+      <button id="bet-heads" onclick="placeBet(5, 'Heads')">Bet 5 on Heads</button>
+      <button id="bet-tails" onclick="placeBet(5, 'Tails')">Bet 5 on Tails</button>
+      <button id="all-in-heads" onclick="placeAllIn('Heads')">All in on Heads</button>
+      <button id="all-in-tails" onclick="placeAllIn('Tails')">All in on Tails</button>
+    </div>
+    <p id="result"></p>
+    <ul id="last-outcomes-list"></ul>
+    
+  </div>
+  <script src="coinflip.js"></script>
+  <script>
+      if (typeof(Storage) === "undefined") {
+    alert("Sorry, your browser does not support web storage. Please upgrade to a modern browser.");
+  }
+
+    window.onload = function() {
+      if (typeof(Storage) === "undefined") {
+        alert("Sorry, your browser does not support web storage. Please upgrade to a modern browser.");
+      } else {
+        // Retrieve the balance from local storage
+        var savedBalance = localStorage.getItem("balance");
+        if (savedBalance) {
+          balance = parseFloat(savedBalance);
+          document.getElementById("balance-amount").innerHTML = balance.toFixed(2);
+        }
+      }
+    };
+
+    function saveBalance() {
+      localStorage.setItem("balance", balance.toFixed(2));
+    }
+  </script>
+</body>
+</html>
