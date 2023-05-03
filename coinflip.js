@@ -67,8 +67,8 @@ if (balance >= bet) {
     lastOutcomesList.appendChild(listItem);
 
     if (randomOutcome === outcome) {
-      balance += bet * 1.9;
-      document.getElementById('result').textContent = 'Du vandt $' + (bet * 0.9).toFixed(2) + '!'; // Format bet with 2 decimal places
+      balance += bet * 2;
+      document.getElementById('result').textContent = 'Du vandt $' + (bet * 1).toFixed(2) + '!'; // Format bet with 2 decimal places
     } else {
       document.getElementById('result').textContent = 'Du tabte $' + (bet).toFixed(2) + '!'; // Format bet with 2 decimal places
     }
